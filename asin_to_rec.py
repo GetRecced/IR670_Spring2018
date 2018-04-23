@@ -36,12 +36,11 @@ def get_recommendation_items(asin_list):
             imgs.append(img)
             names.append(list(tr.children)[6].find('div').get_text())
 
-        f, axarr = plt.subplots(1, len(imgs))
-
+        f, axarr = plt.subplots(1,len(imgs),figsize=(15,15))
         for i in range(len(imgs)):
             axarr[i].imshow(imgs[i], cmap = cm.Greys_r)
             axarr[i].set_title(names[i])
             axarr[i].axis('off')
             f.tight_layout() 
-
+        
         plt.show()
