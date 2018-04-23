@@ -10,7 +10,7 @@ public:
     corp(corp), K(K), latentReg(latentReg), lambda(lambda)
   {
     srand(0);
-
+    c = corp;
     nUsers = corp->nUsers;
     nBeers = corp->nBeers;
     nWords = corp->nWords;
@@ -51,6 +51,12 @@ public:
           nTrainingPerBeer[(*it)->item] = 0;
         nTrainingPerUser[(*it)->user] ++;
         nTrainingPerBeer[(*it)->item] ++;
+
+        if ((*it)->user == USER_ID)
+        {
+            setOfBeersOfThatUser.insert((*it)->item);
+        }
+        setOfBeers.insert((*it)->item);
       }
       else if (r < (testFraction + trainFraction))
       {
@@ -240,6 +246,7 @@ public:
   void validTestError(double& train, double& valid, double& rmse_test, double &mae_test, double& testSte);
   void normalizeWordWeights(void);
   void save(char* modelPath, char* predictionPath);
+  vector<string> getRecommendationsForUser(string userId);
 
   corpus* corp;
   
@@ -311,4 +318,8 @@ public:
   int nUsers; // Number of users
   int nBeers; // Number of items
   int nWords; // Number of words
+
+  set<string> setOfBeers;
+  set<string> setOfBeersOfThatUser;
+  corpus* c;
 };

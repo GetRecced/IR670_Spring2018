@@ -16,7 +16,12 @@
 #include "algorithm"
 #include "lbfgs.h"
 #include "sstream"
+#include <set>
+#include <algorithm>
 //#include "gzstream.h"
+
+
+string USER_ID = "A00100742Q4O8VH0YMUBZ";
 
 /// Safely open a file
 FILE* fopen_(const char* p, const char* m)
