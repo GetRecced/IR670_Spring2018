@@ -52,7 +52,7 @@ public:
         nTrainingPerUser[(*it)->user] ++;
         nTrainingPerBeer[(*it)->item] ++;
 
-        if ((*it)->user == USER_ID)
+        if ((*it)->user == corp->userIds[USER_ID])
         {
             setOfBeersOfThatUser.insert((*it)->item);
         }
@@ -319,7 +319,7 @@ public:
   int nBeers; // Number of items
   int nWords; // Number of words
 
-  set<string> setOfBeers;
-  set<string> setOfBeersOfThatUser;
+  set<int> setOfBeers;
+  set<int> setOfBeersOfThatUser;
   corpus* c;
 };

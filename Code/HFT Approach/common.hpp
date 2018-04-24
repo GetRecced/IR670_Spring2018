@@ -12,12 +12,11 @@
 #include "set"
 #include <fstream>
 #include "vector"
+#include "sstream"
 #include "common.hpp"
 #include "algorithm"
 #include "lbfgs.h"
-#include "sstream"
-#include <set>
-#include <algorithm>
+using namespace std;
 //#include "gzstream.h"
 
 

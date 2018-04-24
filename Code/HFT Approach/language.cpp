@@ -517,23 +517,24 @@ vector<string> topicCorpus::getRecommendationsForUser(string userId)
 {
     vector<string> answer;
     vector<pair<string, double> > ratingsByTheUser;
-    set<string> predictForBeers;
+    set<int> predictForBeers;
     std::set_difference(setOfBeers.begin(), setOfBeers.end(), setOfBeersOfThatUser.begin(), setOfBeersOfThatUser.end(),
                         std::inserter(predictForBeers, predictForBeers.end()));
 
     vote v;
     v.user = c->userIds[userId];
-    for (set<string>::iterator i=predictForBeers.begin(); i != predictForBeers.end(), i++)
+    for (set<int>::iterator i=predictForBeers.begin(); i != predictForBeers.end(); i++)
     {
-        string beer = *i;
-        v.item = c->beerIds[beer];
+        string beer = c->rBeerIds[*i];
+        v.item = *i;
         double p = prediction(&v);
         ratingsByTheUser.push_back(make_pair(beer, p));
     }
     sort(ratingsByTheUser.begin(), ratingsByTheUser.end(), sortBySecondDescending);
-    int limit = max(5, ratingsByTheUser.size());
+    int limit = min(5, int(ratingsByTheUser.size()));
     for (int i=0; i<limit; i++)
     {
+        cout << ratingsByTheUser[i].first << " " << ratingsByTheUser[i].second << endl;
         answer.push_back(ratingsByTheUser[i].first);
     }
     return answer;
@@ -572,7 +573,7 @@ int main(int argc, char **argv) {
                    lambda); // lambda
     ec.train(50, 50);
     int num_rec = 5;
-    vector<string> recommendations = ec.getRecommendationsForUser(USER_ID);
+    vector<string> recommendations = ec.getRecommendationsForUser("A00100742Q4O8VH0YMUBZ");
     for (int i=0; i<recommendations.size(); i++)
     {
         cout << recommendations[i] << endl;
